@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Important Question 💘</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: linear-gradient(135deg, #ff758c, #ffb199);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 60px 70px;
+      border-radius: 30px;
+      text-align: center;
+      box-shadow: 0 20px 45px rgba(0,0,0,0.3);
+      position: relative;
+      z-index: 2;
+    }
+
+    h1 {
+      font-size: 42px;
+      color: #ff3366;
+      margin-bottom: 40px;
+    }
+
+    button {
+      padding: 18px 40px;
+      font-size: 24px;
+      border: none;
+      border-radius: 40px;
+      cursor: pointer;
+      margin: 15px;
+    }
+
+    #yesBtn {
+      background-color: #ff3366;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #e0e0e0;
+      position: absolute;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="card">
+    <h1 id="question">Will you be my Valentine? 💕</h1>
+    <button id="yesBtn">YES 💖</button>
+    <button id="noBtn">NO 🙃</button>
+  </div>
+
+  <script>
+    const question = document.getElementById("question");
+    const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn");
+
+    const messages = [
+      "Hmm… are you absolutely sure? 🤔",
+      "Like… REALLY sure? Take a second 😐",
+      "This feels like a questionable life choice 😳",
+      "I would reconsider if I were you… 🥺",
+      "Okay wow. You’re testing my patience now 😭",
+      "Yeah no. This button has lost its privileges."
+    ];
+
+    let noCount = 0;
+    let angle = 0;
+    let spinning = false;
+
+    noBtn.addEventListener("click", () => {
+      if (noCount < messages.length) {
+        question.textContent = messages[noCount];
+        noCount++;
+      } else {
+        startSpinning();
+      }
+    });
+
+    function startSpinning() {
+      if (spinning) return;
+      spinning = true;
+
+      const radius = 160;
+
+      setInterval(() => {
+        angle += 0.06;
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+
+        const x = centerX + radius * Math.cos(angle);
+        const y = centerY + radius * Math.sin(angle);
+
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+      }, 16);
+    }
+
+    yesBtn.addEventListener("click", () => {
+      document.getElementById("card").innerHTML = `
+        <h1>EXCELLENT DECISION 🥰💘</h1>
+        <p style="font-size:26px;">
+          You have officially made me very happy ❤️<br>
+          Happy Valentine’s Day 😌
+        </p>
+      `;
+    });
+  </script>
+
+</body>
+</html>
