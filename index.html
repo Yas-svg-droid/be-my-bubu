@@ -176,12 +176,11 @@ document.addEventListener("DOMContentLoaded", () => {
   noBtn.addEventListener("touchstart", handleNo);
 
   /* ---------- YES ---------- */
-  yesBtn.addEventListener("click", () => {
-    if (dodgeInterval) clearInterval(dodgeInterval);
-
+   yesBtn.addEventListener("click", () => {
+    launchConfetti();
     card.innerHTML = `
-      <h1 style="font-size:38px;">💖 Yayyy 💖</h1>
-      <p style="font-size:26px; margin-top:18px;">
+      <h1 style="font-size:42px;">🎆 Celebration Time 🎆</h1>
+      <p style="font-size:28px; color:#8b0000; margin-top:20px;">
         You are my <strong>bubu</strong> now and forever ❤️
       </p>
     `;
