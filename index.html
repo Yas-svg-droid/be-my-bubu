@@ -175,17 +175,32 @@ document.addEventListener("DOMContentLoaded", () => {
   noBtn.addEventListener("click", handleNo);
   noBtn.addEventListener("touchstart", handleNo);
 
-/* ---------- YES CLICK ---------- */
-yesBtn.addEventListener("click", () => {
-  launchConfetti();
-  card.innerHTML = `
-    <h1 style="font-size:42px;">🎆 Celebration Time 🎆</h1>
-    <p style="font-size:28px; color:#8b0000; margin-top:20px;">
-      You are my <strong>bubu</strong> now and forever ❤️
-    </p>
-  `;
+  /* ---------- YES CLICK ---------- */
+  yesBtn.addEventListener("click", () => {
+    launchConfetti();
+    card.innerHTML = `
+      <h1 style="font-size:42px;">🎆 Celebration Time 🎆</h1>
+      <p style="font-size:28px; color:#8b0000; margin-top:20px;">
+        You are my <strong>bubu</strong> now and forever ❤️
+      </p>
+    `;
   });
-});
+
+  /* ---------- CONFETTI ---------- */
+  function launchConfetti() {
+    const colors = ["#ff4d6d", "#ffd166", "#06d6a0", "#4cc9f0"];
+    for (let i = 0; i < 180; i++) {
+      const c = document.createElement("div");
+      c.className = "confetti";
+      c.style.left = Math.random() * 100 + "vw";
+      c.style.backgroundColor =
+        colors[Math.floor(Math.random() * colors.length)];
+      c.style.animationDuration =
+        2 + Math.random() * 3 + "s";
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 5000);
+    }
+  }
 </script>
 
 
