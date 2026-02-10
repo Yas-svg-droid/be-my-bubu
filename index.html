@@ -1,3 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>One Important Question ❤️</title>
+
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      background: radial-gradient(circle, #8b0000, #3a0000);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      overflow: hidden;
+    }
+
+    .card {
+      background: white;
+      padding: 70px 90px;
+      border-radius: 40px;
+      text-align: center;
+      box-shadow: 0 30px 70px rgba(0,0,0,0.45);
+      width: 560px;
+    }
+
+    h1 {
+      font-size: 38px;
+      color: #8b0000;
+      margin-bottom: 20px;
+    }
+
+    .subtext {
+      font-size: 22px;
+      color: #555;
+      margin-bottom: 45px;
+      min-height: 32px;
+      transition: opacity 0.3s ease;
+    }
+
+    /* Button playground */
+    .arena {
+      position: relative;
+      width: 100%;
+      height: 140px;
+    }
+
+    button {
+      padding: 18px 46px;
+      font-size: 22px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      position: absolute;
+      transition:
+        transform 0.35s ease,
+        left 0.35s ease,
+        top 0.35s ease;
+      white-space: nowrap;
+    }
+
+    #yesBtn {
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%) scale(1);
+      background: linear-gradient(135deg, #b11226, #ff4d6d);
+      color: white;
+      box-shadow: 0 14px 30px rgba(177,18,38,0.45);
+      z-index: 2;
+    }
+
+    #noBtn {
+      left: 65%;
+      top: 55%;
+      background: #f2f2f2;
+      color: #333;
+      z-index: 1;
+    }
+
+    /* Confetti */
+    .confetti {
+      position: fixed;
+      width: 10px;
+      height: 10px;
+      top: -10px;
+      animation: fall linear forwards;
+    }
+
+    @keyframes fall {
+      to {
+        transform: translateY(110vh) rotate(360deg);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card" id="card">
+    <h1>Will you be my Valentine? ❤️</h1>
+    <div class="subtext" id="subtext"></div>
+
+    <div class="arena" id="arena">
+      <button id="yesBtn">YES 💖</button>
+      <button id="noBtn">NO 🙃</button>
+    </div>
+  </div>
+
 <script>
   const subtext = document.getElementById("subtext");
   const yesBtn = document.getElementById("yesBtn");
@@ -98,3 +206,7 @@
     }
   }
 </script>
+
+
+</body>
+</html>
