@@ -107,56 +107,56 @@
   </div>
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
   const subtext = document.getElementById("subtext");
   const yesBtn = document.getElementById("yesBtn");
   const noBtn = document.getElementById("noBtn");
   const card = document.getElementById("card");
 
+  if (!subtext || !yesBtn || !noBtn || !card) return;
+
   const messages = [
-    "Take a second… this is an important question 🤔",
-    "Are you *really* trying to say no?",
-    "That button is looking very suspicious 😐",
-    "Yeah… NO is officially banned 😌"
+    "Wait… think about it 😌",
+    "Are you sure you want to say no?",
+    "This feels like a YES moment 👀",
+    "Okay NO is not an option anymore 😄"
   ];
 
   let noClicks = 0;
   let yesScale = 1;
   let dodgeMode = false;
+  let dodgeInterval = null;
 
-  /* ---------- YES GROWTH (NO OVERLAP) ---------- */
   function growYes() {
     yesScale += 0.15;
     yesBtn.style.transform =
       `translate(-50%, -50%) scale(${yesScale})`;
   }
 
-  /* ---------- FULL SCREEN TELEPORT ---------- */
   function moveNoRandomly() {
-    const padding = 40;
-    const yesRect = yesBtn.getBoundingClientRect();
+    const padding = 30;
     const noRect = noBtn.getBoundingClientRect();
 
-    let x, y, safe;
-
-    do {
-      x = Math.random() * (window.innerWidth - noRect.width - padding * 2) + padding;
-      y = Math.random() * (window.innerHeight - noRect.height - padding * 2) + padding;
-
-      // Safe distance from YES
-      safe =
-        x + noRect.width < yesRect.left - 40 ||
-        x > yesRect.right + 40 ||
-        y + noRect.height < yesRect.top - 40 ||
-        y > yesRect.bottom + 40;
-
-    } while (!safe);
+    const x =
+      Math.random() * (window.innerWidth - noRect.width - padding * 2) + padding;
+    const y =
+      Math.random() * (window.innerHeight - noRect.height - padding * 2) + padding;
 
     noBtn.style.left = `${x}px`;
     noBtn.style.top = `${y}px`;
   }
 
-  /* ---------- NO CLICK ---------- */
-  noBtn.addEventListener("click", (e) => {
+  function startDodgeMode() {
+    dodgeMode = true;
+    noBtn.style.position = "fixed";
+    moveNoRandomly();
+
+    // 🔑 Auto movement for mobile
+    dodgeInterval = setInterval(moveNoRandomly, 800);
+  }
+
+  /* ---------- NO interaction (tap or click) ---------- */
+  function handleNo(e) {
     e.preventDefault();
 
     if (noClicks < messages.length) {
@@ -165,47 +165,30 @@
       growYes();
 
       if (noClicks === messages.length) {
-        dodgeMode = true;
-        noBtn.style.position = "fixed";
-        moveNoRandomly();
+        startDodgeMode();
       }
-    }
-  });
-
-  /* ---------- INSTANT DODGE (NO STUCK CURSOR) ---------- */
-  noBtn.addEventListener("mousemove", () => {
-    if (dodgeMode) {
+    } else if (dodgeMode) {
       moveNoRandomly();
     }
-  });
+  }
 
-  /* ---------- YES CLICK ---------- */
+  noBtn.addEventListener("click", handleNo);
+  noBtn.addEventListener("touchstart", handleNo);
+
+  /* ---------- YES ---------- */
   yesBtn.addEventListener("click", () => {
-    launchConfetti();
+    if (dodgeInterval) clearInterval(dodgeInterval);
+
     card.innerHTML = `
-      <h1 style="font-size:42px;">🎆 Celebration Time 🎆</h1>
-      <p style="font-size:28px; color:#8b0000; margin-top:20px;">
-        You are my <strong>bubu</strong> now and forever ❤️
+      <h1 style="font-size:38px;">💖 Yayyy 💖</h1>
+      <p style="font-size:26px; margin-top:18px;">
+        You are my Valentine ❤️
       </p>
     `;
   });
-
-  /* ---------- CONFETTI ---------- */
-  function launchConfetti() {
-    const colors = ["#ff4d6d", "#ffd166", "#06d6a0", "#4cc9f0"];
-    for (let i = 0; i < 180; i++) {
-      const c = document.createElement("div");
-      c.className = "confetti";
-      c.style.left = Math.random() * 100 + "vw";
-      c.style.backgroundColor =
-        colors[Math.floor(Math.random() * colors.length)];
-      c.style.animationDuration =
-        2 + Math.random() * 3 + "s";
-      document.body.appendChild(c);
-      setTimeout(() => c.remove(), 5000);
-    }
-  }
+});
 </script>
+
 
 
 </body>
